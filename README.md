@@ -1,16 +1,25 @@
-# React + Vite
+# Voice Agent IaaS — Gatekeeper Platform 🚀
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Live Production Link**: [https://webagents67.vercel.app](https://webagents67.vercel.app)
 
-Currently, two official plugins are available:
+A robust, enterprise-grade Voice AI Infrastructure as a Service (IaaS) platform powered by Ultravox. This system allows you to create, manage, and scale AI-driven voice agents with professional personality templates and a hard-coded safety lock for lead generation.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+- **Centralized Master Prompt**: Control all agent personalities from one Admin dashboard.
+- **Admin Gatekeeper**: Secure tenant activation and API key management.
+- **Dynamic Variable Injections**: Seamlessly inject `{agent_name}`, `{company_name}`, `{context}`, and `{questions}`.
+- **Unbreakable Safety Lock**: Hard-coded tool instructions for lead saving and session hangups.
+- **SaaS Dashboard**: Real-time usage tracking and lead management for tenants.
 
-## React Compiler
+## Tech Stack
+- **Frontend**: React (Vite)
+- **Backend**: Node.js (Express)
+- **Database**: Supabase
+- **AI Brain**: Ultravox AI
+- **Deployment**: Vercel (Unified)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Setup
+1. Clone the repo.
+2. Install dependencies: `npm install`
+3. Set environment variables in `.env`.
+4. Launch local dev: `npm run dev` & `npm run server`
