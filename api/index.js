@@ -33,22 +33,10 @@ app.use((req, res, next) => {
 app.use('/api/admin', adminRoutes);
 app.use('/api/user', userRoutes);
 
-// Protected: requires x-api-key inside the router itself
+// Unified /api prefix routes
 app.use('/api', agentRoutes);
-
-// Public: voice session init (called by the session page)
 app.use('/api', sessionRoutes);
-
-// Public: save answers webhook (called by the client-side SDK tool)
 app.use('/api', answersRoutes);
-
-// --- Serve static frontend in production ---
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '..', 'dist')));
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, '..', 'dist', 'index.html'));
-    });
-}
 
 // --- Start ---
 if (process.env.NODE_ENV !== 'production') {
