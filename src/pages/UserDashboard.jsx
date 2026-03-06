@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import './Dashboard.css';
 
-const API_BASE = 'http://localhost:3000';
-const FRONTEND_URL = 'http://localhost:5173';
+const API_BASE = import.meta.env.VITE_API_URL || '';
+const FRONTEND_URL = window.location.origin;
 
 export default function UserDashboard() {
     const [data, setData] = useState(null);
