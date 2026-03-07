@@ -1,0 +1,85 @@
+.voice-orb-wrapper {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem auto;
+}
+
+.voice-orb-svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    z-index: 2;
+}
+
+.orb-glow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.6;
+    z-index: 1;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.voice-orb-wrapper.active .orb-glow,
+.voice-orb-wrapper.speaking .orb-glow {
+    opacity: 0.8;
+}
+
+.orb-inner-circles {
+    transition: all 0.1s ease;
+}
+
+.blob {
+    transition: all 0.05s ease;
+}
+
+/* Animations */
+.voice-orb-wrapper.active circle {
+    animation: jitter 4s ease-in-out infinite;
+}
+
+@keyframes jitter {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(5px, -5px);
+    }
+
+    50% {
+        transform: translate(-5px, 5px);
+    }
+
+    75% {
+        transform: translate(5px, 5px);
+    }
+}
+
+.voice-orb-wrapper.connecting circle {
+    animation: rotate-orb 2s linear infinite;
+}
+
+@keyframes rotate-orb {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+circle {
+    transform-origin: center;
+    transition: transform 0.1s ease, fill 0.5s ease;
+}

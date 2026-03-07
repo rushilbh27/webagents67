@@ -1,29 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
+
+:root {
+    --bg-glow-opacity: 0.05;
+    --bg-glow-color: 99, 102, 241;
+}
+
 .voice-session {
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: #050508;
-    background-image:
-        radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.06) 0%, transparent 50%),
-        radial-gradient(circle at 80% 70%, rgba(168, 85, 247, 0.06) 0%, transparent 50%);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #020205;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Outfit', sans-serif;
     color: #fff;
 }
 
+/* Deep Space Background Glow */
+.voice-session::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140vw;
+    height: 140vh;
+    background: radial-gradient(circle at center,
+            rgba(var(--bg-glow-color), var(--bg-glow-opacity)) 0%,
+            transparent 60%);
+    z-index: 0;
+    pointer-events: none;
+    transition: all 0.5s ease;
+}
+
 .session-container {
+    position: relative;
+    z-index: 10;
     width: 100%;
-    max-width: 460px;
-    padding: 2.5rem 2rem;
+    max-width: 500px;
+    padding: 3rem 2rem;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.session-header {
+    margin-bottom: 2rem;
 }
 
 .session-header h1 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: 700;
-    letter-spacing: -0.03em;
-    margin-bottom: 0.25rem;
-    background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
+    letter-spacing: -0.04em;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0.7) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -31,10 +64,10 @@
 
 .session-subtitle {
     color: rgba(255, 255, 255, 0.4);
-    font-size: 0.85rem;
+    font-size: 0.9rem;
+    font-weight: 400;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
-    margin-bottom: 3rem;
+    letter-spacing: 0.2em;
 }
 
 /* Orb */
@@ -124,30 +157,35 @@
     }
 }
 
-/* Status */
+/* Status Indicator */
 .session-status {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 0.75rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 0.6rem 1.2rem;
+    border-radius: 100px;
+    backdrop-filter: blur(10px);
     margin-bottom: 2rem;
 }
 
 .status-dot {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: #6b7280;
 }
 
 .status-dot.active {
     background: #22c55e;
-    animation: blink 1.5s ease-in-out infinite;
+    box-shadow: 0 0 10px #22c55e;
 }
 
 .status-dot.connecting {
     background: #f59e0b;
-    animation: blink 0.8s ease-in-out infinite;
+    box-shadow: 0 0 10px #f59e0b;
 }
 
 .status-dot.ended {
@@ -171,9 +209,10 @@
 }
 
 .status-label {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    font-weight: 500;
     color: rgba(255, 255, 255, 0.6);
-    text-transform: capitalize;
+    letter-spacing: 0.02em;
 }
 
 /* Error */
@@ -187,76 +226,116 @@
     font-size: 0.9rem;
 }
 
-/* End Call Button */
+/* Controls Area */
+.controls-area {
+    margin-top: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+}
+
 .end-call-btn {
-    background: rgba(239, 68, 68, 0.15);
-    border: 1px solid rgba(239, 68, 68, 0.4);
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
     color: #fca5a5;
-    padding: 0.9rem 2.5rem;
-    border-radius: 100px;
-    font-size: 1rem;
-    font-weight: 600;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    transition: all 0.2s;
-    font-family: inherit;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .end-call-btn:hover {
-    background: rgba(239, 68, 68, 0.25);
-    border-color: #ef4444;
-    box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
+    background: #ef4444;
+    color: #fff;
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(239, 68, 68, 0.4);
 }
 
-/* Saved Data */
+.end-call-btn svg {
+    width: 28px;
+    height: 28px;
+}
+
+/* Data Display (Clean) */
 .saved-data {
-    margin-top: 2rem;
-    background: rgba(16, 185, 129, 0.08);
-    border: 1px solid rgba(16, 185, 129, 0.25);
-    padding: 1.5rem;
-    border-radius: 16px;
+    margin-top: 3rem;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 2rem;
     text-align: left;
+    animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .saved-data h3 {
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-    color: #34d399;
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
-.data-row {
-    padding: 0.4rem 0;
+.data-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.data-card {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.data-label {
+    display: block;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+}
+
+.data-value {
+    font-weight: 600;
+    color: #fff;
+}
+
+.responses-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.response-card {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
     font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.8);
-}
-
-.data-row strong {
-    color: rgba(255, 255, 255, 0.5);
-    margin-right: 0.5rem;
-}
-
-.responses-list {
-    margin-top: 0.75rem;
-    padding-top: 0.75rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.responses-list>strong {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 0.85rem;
-    display: block;
-    margin-bottom: 0.5rem;
-}
-
-.response-item {
-    padding: 0.35rem 0;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.response-num {
-    color: #a78bfa;
-    font-weight: 600;
-    margin-right: 0.5rem;
+    border-left: 3px solid #6366f1;
 }
 
 /* Ended */
