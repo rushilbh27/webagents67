@@ -115,7 +115,7 @@ function LandingPage({ session, onRequestAccess }) {
       <section className="hero">
         <div className="hero-badge">
           <span className="hero-badge-dot" />
-          Private API · Invite Only
+          Invite Only
         </div>
 
         <h1 className="hero-title">
@@ -124,8 +124,8 @@ function LandingPage({ session, onRequestAccess }) {
         </h1>
 
         <p className="hero-desc">
-          One API call deploys a live voice agent. Your users talk, your agents act —
-          no infrastructure to manage.
+          One API call deploys a live voice agent. Your users talk, your agents act.
+          No infrastructure to manage.
         </p>
 
         <button className="hero-cta" onClick={() => session ? window.location.href = '/redirect' : onRequestAccess()}>
