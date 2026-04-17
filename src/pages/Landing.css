@@ -1,7 +1,7 @@
 /* ── Layout ───────────────────────────────────────────────── */
 .landing {
   min-height: 100vh;
-  background: #050508;
+  background: #11131A;
   color: #fff;
   font-family: 'Inter', sans-serif;
   position: relative;
@@ -20,7 +20,7 @@
   height: 700px;
   top: -280px;
   left: -280px;
-  background: radial-gradient(circle, rgba(147,51,234,0.13) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255,59,59,0.12) 0%, transparent 70%);
   animation: orbFloat1 14s ease-in-out infinite;
 }
 .landing-orb-2 {
@@ -28,7 +28,7 @@
   height: 600px;
   bottom: -240px;
   right: -240px;
-  background: radial-gradient(circle, rgba(124,58,237,0.09) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255,59,59,0.07) 0%, transparent 70%);
   animation: orbFloat2 18s ease-in-out infinite;
 }
 @keyframes orbFloat1 {
@@ -55,9 +55,9 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  background: rgba(147,51,234,0.12);
-  border: 1px solid rgba(147,51,234,0.3);
-  color: #c084fc;
+  background: rgba(255,59,59,0.1);
+  border: 1px solid rgba(255,59,59,0.28);
+  color: #ff6b6b;
   padding: 0.35rem 1rem;
   border-radius: 100px;
   font-size: 0.75rem;
@@ -70,7 +70,7 @@
 .hero-badge-dot {
   width: 6px;
   height: 6px;
-  background: #a855f7;
+  background: #FF3B3B;
   border-radius: 50%;
   animation: pulseDot 2s ease-in-out infinite;
 }
@@ -84,14 +84,14 @@
   animation: fadeUp 0.5s 0.1s ease both;
 }
 .hero-title-main {
-  background: linear-gradient(135deg, #fff 30%, #e9d5ff 100%);
+  background: linear-gradient(135deg, #fff 30%, #ffd5d5 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   display: block;
 }
 .hero-title-sub {
-  background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%);
+  background: linear-gradient(135deg, #FF3B3B 0%, #e02e2e 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -108,7 +108,7 @@
 }
 
 .hero-cta {
-  background: linear-gradient(135deg, #9333ea, #7c3aed);
+  background: linear-gradient(135deg, #FF3B3B, #e02e2e);
   color: #fff;
   border: none;
   padding: 0.9rem 2.25rem;
@@ -117,17 +117,17 @@
   font-size: 1rem;
   cursor: pointer;
   transition: transform 0.22s ease, box-shadow 0.22s ease;
-  box-shadow: 0 4px 24px rgba(147,51,234,0.35);
+  box-shadow: 0 4px 24px rgba(255,59,59,0.35);
   animation: fadeUp 0.5s 0.3s ease both;
   letter-spacing: 0.01em;
 }
 .hero-cta:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 36px rgba(147,51,234,0.52);
+  box-shadow: 0 10px 36px rgba(255,59,59,0.5);
 }
 .hero-cta:active {
   transform: translateY(0);
-  box-shadow: 0 4px 16px rgba(147,51,234,0.3);
+  box-shadow: 0 4px 16px rgba(255,59,59,0.3);
 }
 
 /* ── Dashboard Mockup ─────────────────────────────────────── */
@@ -143,11 +143,11 @@
 .mockup {
   width: 100%;
   max-width: 780px;
-  background: #0c0c13;
+  background: #0d0f15;
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 28px 80px rgba(0,0,0,0.65), 0 0 0 1px rgba(147,51,234,0.07);
+  box-shadow: 0 28px 80px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,59,59,0.06);
 }
 
 .mockup-titlebar {
@@ -261,13 +261,13 @@
   height: 28px;
   min-width: 28px;
   border-radius: 50%;
-  background: rgba(147,51,234,0.25);
+  background: rgba(255,59,59,0.18);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.68rem;
   font-weight: 700;
-  color: #c084fc;
+  color: #ff6b6b;
 }
 .mrow-info { flex: 1; }
 .mrow-name {
@@ -289,7 +289,7 @@
   white-space: nowrap;
 }
 .mbadge-active   { background: rgba(74,222,128,0.1);  border: 1px solid rgba(74,222,128,0.25);  color: #4ade80; }
-.mbadge-complete { background: rgba(147,51,234,0.1);  border: 1px solid rgba(147,51,234,0.25); color: #c084fc; }
+.mbadge-complete { background: rgba(255,59,59,0.1);   border: 1px solid rgba(255,59,59,0.25);   color: #ff6b6b; }
 .mbadge-pending  { background: rgba(251,191,36,0.1);  border: 1px solid rgba(251,191,36,0.22);  color: #fbbf24; }
 
 /* ── Keyframes ────────────────────────────────────────────── */
@@ -322,7 +322,7 @@
 }
 
 .modal-box {
-  background: #0e0e16;
+  background: #14161e;
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 20px;
   padding: 2.25rem;
@@ -331,12 +331,12 @@
   max-height: 92vh;
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: rgba(147,51,234,0.35) transparent;
+  scrollbar-color: rgba(255,59,59,0.35) transparent;
   animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 .modal-box::-webkit-scrollbar       { width: 4px; }
 .modal-box::-webkit-scrollbar-track { background: transparent; }
-.modal-box::-webkit-scrollbar-thumb { background: rgba(147,51,234,0.35); border-radius: 2px; }
+.modal-box::-webkit-scrollbar-thumb { background: rgba(255,59,59,0.35); border-radius: 2px; }
 @keyframes modalIn {
   from { opacity: 0; transform: translateY(18px) scale(0.97); }
   to   { opacity: 1; transform: translateY(0) scale(1); }
@@ -429,9 +429,9 @@
 .mfield textarea::placeholder { color: rgba(255,255,255,0.2); }
 .mfield input:focus,
 .mfield textarea:focus {
-  border-color: rgba(147,51,234,0.7);
-  box-shadow: 0 0 0 3px rgba(147,51,234,0.13);
-  background: rgba(147,51,234,0.04);
+  border-color: rgba(255,59,59,0.65);
+  box-shadow: 0 0 0 3px rgba(255,59,59,0.1);
+  background: rgba(255,59,59,0.03);
 }
 .mfield textarea {
   min-height: 88px;
@@ -440,7 +440,7 @@
 }
 
 .mform-submit {
-  background: linear-gradient(135deg, #9333ea, #7c3aed);
+  background: linear-gradient(135deg, #FF3B3B, #e02e2e);
   color: #fff;
   border: none;
   padding: 0.88rem;
@@ -451,15 +451,15 @@
   width: 100%;
   margin-top: 0.5rem;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 4px 18px rgba(147,51,234,0.28);
+  box-shadow: 0 4px 18px rgba(255,59,59,0.28);
   letter-spacing: 0.01em;
 }
 .mform-submit:hover:not(:disabled) {
   transform: translateY(-1px);
-  box-shadow: 0 8px 30px rgba(147,51,234,0.48);
+  box-shadow: 0 8px 30px rgba(255,59,59,0.46);
 }
 .mform-submit:active:not(:disabled) {
   transform: translateY(0);
-  box-shadow: 0 4px 14px rgba(147,51,234,0.25);
+  box-shadow: 0 4px 14px rgba(255,59,59,0.25);
 }
 .mform-submit:disabled { opacity: 0.48; cursor: not-allowed; }
