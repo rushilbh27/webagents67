@@ -28,25 +28,27 @@ function RequestAccessModal({ isOpen, onClose, adminEmail }) {
     setMessage('')
 
     try {
-      const mailtoBody = `
-Name: ${formData.name}
-Company: ${formData.company}
-Email: ${formData.email}
-Phone: ${formData.number}
-Role: ${formData.role}
-Purpose: ${formData.purpose || 'Not specified'}
-      `.trim()
-
-      // Open mailto with prefilled content
-      window.location.href = `mailto:${adminEmail}?subject=API%20Access%20Request%20-%20${encodeURIComponent(formData.company)}&body=${encodeURIComponent(mailtoBody)}`
+      const API_BASE = import.meta.env.VITE_API_URL || ''
       
-      setMessage('✅ Email client opened with your request. Please send it.')
+      const res = await fetch(`${API_BASE}/api/request-access`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to submit request')
+      }
+
+      setMessage('✅ ' + data.message)
       setTimeout(() => {
-        onClose()
         setFormData({ name: '', company: '', email: '', number: '', role: '', purpose: '' })
-      }, 2000)
+        setMessage('')
+      }, 3000)
     } catch (err) {
-      setMessage('Error preparing request. Please try again.')
+      setMessage('❌ ' + (err.message || 'Error submitting request. Please try again.'))
     } finally {
       setLoading(false)
     }

@@ -10,6 +10,7 @@ import sessionRoutes from './routes/session.js';
 import answersRoutes from './routes/answers.js';
 import adminRoutes from './routes/admin.js';
 import userRoutes from './routes/user.js';
+import requestRoutes from './routes/request.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -36,6 +37,7 @@ app.use('/api/user', userRoutes);
 // Unified /api prefix routes
 app.use('/api', agentRoutes);
 app.use('/api', sessionRoutes);
+app.use('/api', requestRoutes);
 app.use('/api', answersRoutes);
 
 // --- Start ---
