@@ -157,7 +157,28 @@ router.get('/session/:uuid', async (req, res) => {
 
         if (!uvResponse.ok) {
             console.error('Ultravox API error:', uvData);
-            return res.status(502).json({ error: 'Failed to create Ultravox call.', details: uvData });
+
+            let userMessage = 'Failed to create Ultravox call.';
+            const uvStatus = uvResponse.status;
+            const uvDetail = uvData?.detail || uvData?.message || '';
+
+            if (uvStatus === 401 || uvStatus === 403) {
+                userMessage = 'Invalid or unauthorized Ultravox API key.';
+            } else if (uvStatus === 400) {
+                if (uvDetail.toLowerCase().includes('voice')) {
+                    userMessage = `Voice ID "${config.voice_id}" not found in your Ultravox account. Use a valid voice ID or omit it to use the default.`;
+                } else {
+                    userMessage = `Ultravox rejected the request: ${uvDetail || 'Bad request.'}`;
+                }
+            } else if (uvStatus === 402) {
+                userMessage = 'Ultravox account limit reached. Check your plan or billing.';
+            } else if (uvStatus === 429) {
+                userMessage = 'Ultravox rate limit hit. Please try again shortly.';
+            } else if (uvDetail) {
+                userMessage = `Ultravox error: ${uvDetail}`;
+            }
+
+            return res.status(502).json({ error: userMessage });
         }
 
         res.json({
