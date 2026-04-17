@@ -16,7 +16,8 @@ router.post('/create-agent', apiKeyMiddleware, async (req, res) => {
         greeting,
         questions: bodyQuestions,
         to,
-        webhook_url
+        webhook_url,
+        voice_id
     } = req.body;
 
     // Support for flattened question1...question10
@@ -88,7 +89,8 @@ router.post('/create-agent', apiKeyMiddleware, async (req, res) => {
             agent_name: agent_name || null,
             external_id: to || null,
             ultravox_api_key: ultravoxKey,
-            webhook_url: webhook_url || null
+            webhook_url: webhook_url || null,
+            voice_id: voice_id || null
         });
 
     if (insertError) {

@@ -86,7 +86,7 @@ router.get('/session/:uuid', async (req, res) => {
     const ultravoxBody = {
         systemPrompt,
         model: 'ultravox-v0.7',
-        voice: 'female_uganda_custom_voice',
+        ...(config.voice_id ? { voice: config.voice_id } : {}),
         temperature: 0.3,
         maxDuration: '1800s',
         firstSpeakerSettings: {
