@@ -7,7 +7,6 @@ export default function Auth() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [otp, setOtp] = useState('');
-    const [isLogin, setIsLogin] = useState(true);
     const [useOtp, setUseOtp] = useState(false);
     const [otpSent, setOtpSent] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -46,15 +45,10 @@ export default function Auth() {
                     if (error) throw error;
                     handleRedirect(data.user);
                 }
-            } else if (isLogin) {
+            } else {
                 const { data, error } = await supabase.auth.signInWithPassword({ email, password });
                 if (error) throw error;
                 handleRedirect(data.user);
-            } else {
-                const { error } = await supabase.auth.signUp({ email, password });
-                if (error) throw error;
-                setMsg('Signup successful! Please log in (Admin may need to activate your account).');
-                setIsLogin(true);
             }
         } catch (err) {
             setError(err.message);
@@ -136,14 +130,6 @@ export default function Auth() {
                     {useOtp ? 'Back to Password Login' : 'Login with Email OTP (2FA)'}
                 </button>
 
-                {!useOtp && (
-                    <button
-                        className="auth-btn Secondary"
-                        onClick={() => setIsLogin(!isLogin)}
-                    >
-                        {isLogin ? 'Need an account? Sign up' : 'Already have an account? Log in'}
-                    </button>
-                )}
             </div>
         </div>
     );

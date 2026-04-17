@@ -60,7 +60,7 @@ function App() {
                 marginBottom: '1rem'
               }}>Voice Agent IaaS</h1>
               <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.2rem', lineHeight: 1.5 }}>
-                API-powered AI voice agents. Built for speed.
+                Request access and receive a private API key from us. No public signup is available.
               </p>
 
               <div style={{ marginTop: '2.5rem', background: 'rgba(0,0,0,0.3)', padding: '1rem 1.5rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)', display: 'inline-block' }}>
@@ -72,7 +72,7 @@ function App() {
               </div>
 
               <div style={{ marginTop: '2rem' }}>
-                <a href={session ? "/redirect" : "/auth"} style={{
+                <a href={session ? "/redirect" : `mailto:${ADMIN_EMAIL}?subject=Request%20API%20Access`} style={{
                   display: 'inline-block',
                   background: '#9333ea',
                   color: '#fff',
@@ -82,7 +82,7 @@ function App() {
                   fontWeight: 600,
                   transition: 'background 0.2s'
                 }}>
-                  {session ? 'Go to Dashboard' : 'Login / Sign Up'}
+                  {session ? 'Go to Dashboard' : 'Request API Access'}
                 </a>
               </div>
             </div>
