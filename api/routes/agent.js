@@ -72,9 +72,27 @@ router.post('/create-agent', apiKeyMiddleware, async (req, res) => {
             .eq('id', req.user.id);
     }
 
+    // --- Validate voice_id against Ultravox before saving ---
+    const ultravoxKey = req.headers['x-ultravox-key'] || process.env.ULTRAVOX_API_KEY || null;
+
+    if (voice_id && ultravoxKey) {
+        try {
+            const voiceCheck = await fetch(`https://api.ultravox.ai/api/voices/${encodeURIComponent(voice_id)}`, {
+                headers: { 'X-API-Key': ultravoxKey }
+            });
+            if (!voiceCheck.ok) {
+                return res.status(400).json({
+                    error: `Voice ID "${voice_id}" not found in your Ultravox account. Check the voice ID or omit it to use the default voice.`
+                });
+            }
+        } catch (err) {
+            console.warn('Could not validate voice_id against Ultravox:', err.message);
+        }
+    }
+
     // --- Insert agent config ---
     const agentId = uuidv4();
-    const ultravoxKey = req.headers['x-ultravox-key'] || null;
+    const storedUltravoxKey = req.headers['x-ultravox-key'] || null;
 
     const { error: insertError } = await supabase
         .from('agent_configs')
@@ -88,7 +106,7 @@ router.post('/create-agent', apiKeyMiddleware, async (req, res) => {
             // Additional B2B tracking (optional columns)
             agent_name: agent_name || null,
             external_id: to || null,
-            ultravox_api_key: ultravoxKey,
+            ultravox_api_key: storedUltravoxKey,
             webhook_url: webhook_url || null,
             voice_id: voice_id || null
         });
