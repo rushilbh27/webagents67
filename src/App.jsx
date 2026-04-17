@@ -6,9 +6,277 @@ import UserDashboard from './pages/UserDashboard'
 import AdminDashboard from './pages/AdminDashboard'
 import { supabase } from './lib/supabase'
 
+function RequestAccessModal({ isOpen, onClose, adminEmail }) {
+  const [formData, setFormData] = useState({
+    name: '',
+    company: '',
+    email: '',
+    number: '',
+    role: '',
+    purpose: ''
+  })
+  const [loading, setLoading] = useState(false)
+  const [message, setMessage] = useState('')
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+    setMessage('')
+
+    try {
+      const mailtoBody = `
+Name: ${formData.name}
+Company: ${formData.company}
+Email: ${formData.email}
+Phone: ${formData.number}
+Role: ${formData.role}
+Purpose: ${formData.purpose || 'Not specified'}
+      `.trim()
+
+      // Open mailto with prefilled content
+      window.location.href = `mailto:${adminEmail}?subject=API%20Access%20Request%20-%20${encodeURIComponent(formData.company)}&body=${encodeURIComponent(mailtoBody)}`
+      
+      setMessage('✅ Email client opened with your request. Please send it.')
+      setTimeout(() => {
+        onClose()
+        setFormData({ name: '', company: '', email: '', number: '', role: '', purpose: '' })
+      }, 2000)
+    } catch (err) {
+      setMessage('Error preparing request. Please try again.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (!isOpen) return null
+
+  return (
+    <div style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      background: 'rgba(0, 0, 0, 0.7)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      zIndex: 1000,
+      padding: '1rem'
+    }}>
+      <div style={{
+        background: 'rgba(255,255,255,0.05)',
+        border: '1px solid rgba(255,255,255,0.1)',
+        borderRadius: '16px',
+        padding: '2rem',
+        maxWidth: '500px',
+        width: '100%',
+        maxHeight: '90vh',
+        overflowY: 'auto'
+      }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+          <h2 style={{ margin: 0, color: '#fff', fontSize: '1.5rem' }}>Request API Access</h2>
+          <button onClick={onClose} style={{
+            background: 'none',
+            border: 'none',
+            color: '#fff',
+            fontSize: '1.5rem',
+            cursor: 'pointer'
+          }}>✕</button>
+        </div>
+
+        {message && (
+          <div style={{
+            background: message.includes('Error') ? 'rgba(239, 68, 68, 0.2)' : 'rgba(34, 197, 94, 0.2)',
+            border: `1px solid ${message.includes('Error') ? 'rgba(239, 68, 68, 0.5)' : 'rgba(34, 197, 94, 0.5)'}`,
+            color: message.includes('Error') ? '#fca5a5' : '#86efac',
+            padding: '0.75rem',
+            borderRadius: '8px',
+            marginBottom: '1rem',
+            fontSize: '0.9rem'
+          }}>
+            {message}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <div>
+            <label style={{ display: 'block', color: '#ddd', fontSize: '0.9rem', marginBottom: '0.5rem' }}>
+              Name *
+            </label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+              style={{
+                width: '100%',
+                padding: '0.75rem',
+                background: 'rgba(0,0,0,0.3)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                borderRadius: '8px',
+                color: '#fff',
+                fontSize: '1rem',
+                boxSizing: 'border-box'
+              }}
+              placeholder="Your name"
+            />
+          </div>
+
+          <div>
+            <label style={{ display: 'block', color: '#ddd', fontSize: '0.9rem', marginBottom: '0.5rem' }}>
+              Company *
+            </label>
+            <input
+              type="text"
+              name="company"
+              value={formData.company}
+              onChange={handleChange}
+              required
+              style={{
+                width: '100%',
+                padding: '0.75rem',
+                background: 'rgba(0,0,0,0.3)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                borderRadius: '8px',
+                color: '#fff',
+                fontSize: '1rem',
+                boxSizing: 'border-box'
+              }}
+              placeholder="Your company"
+            />
+          </div>
+
+          <div>
+            <label style={{ display: 'block', color: '#ddd', fontSize: '0.9rem', marginBottom: '0.5rem' }}>
+              Email *
+            </label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              style={{
+                width: '100%',
+                padding: '0.75rem',
+                background: 'rgba(0,0,0,0.3)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                borderRadius: '8px',
+                color: '#fff',
+                fontSize: '1rem',
+                boxSizing: 'border-box'
+              }}
+              placeholder="your@email.com"
+            />
+          </div>
+
+          <div>
+            <label style={{ display: 'block', color: '#ddd', fontSize: '0.9rem', marginBottom: '0.5rem' }}>
+              Phone Number *
+            </label>
+            <input
+              type="tel"
+              name="number"
+              value={formData.number}
+              onChange={handleChange}
+              required
+              style={{
+                width: '100%',
+                padding: '0.75rem',
+                background: 'rgba(0,0,0,0.3)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                borderRadius: '8px',
+                color: '#fff',
+                fontSize: '1rem',
+                boxSizing: 'border-box'
+              }}
+              placeholder="+1 (555) 000-0000"
+            />
+          </div>
+
+          <div>
+            <label style={{ display: 'block', color: '#ddd', fontSize: '0.9rem', marginBottom: '0.5rem' }}>
+              Role *
+            </label>
+            <input
+              type="text"
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+              required
+              style={{
+                width: '100%',
+                padding: '0.75rem',
+                background: 'rgba(0,0,0,0.3)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                borderRadius: '8px',
+                color: '#fff',
+                fontSize: '1rem',
+                boxSizing: 'border-box'
+              }}
+              placeholder="e.g., Product Manager, Developer, Founder"
+            />
+          </div>
+
+          <div>
+            <label style={{ display: 'block', color: '#ddd', fontSize: '0.9rem', marginBottom: '0.5rem' }}>
+              Purpose (Optional)
+            </label>
+            <textarea
+              name="purpose"
+              value={formData.purpose}
+              onChange={handleChange}
+              style={{
+                width: '100%',
+                padding: '0.75rem',
+                background: 'rgba(0,0,0,0.3)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                borderRadius: '8px',
+                color: '#fff',
+                fontSize: '1rem',
+                boxSizing: 'border-box',
+                minHeight: '80px',
+                fontFamily: "'Inter', sans-serif",
+                resize: 'vertical'
+              }}
+              placeholder="Tell us how you plan to use the Voice Agent API..."
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            style={{
+              background: '#9333ea',
+              color: '#fff',
+              border: 'none',
+              padding: '0.8rem 1.5rem',
+              borderRadius: '8px',
+              fontWeight: 600,
+              cursor: 'pointer',
+              marginTop: '1rem',
+              opacity: loading ? 0.6 : 1,
+              transition: 'opacity 0.2s'
+            }}
+          >
+            {loading ? 'Preparing...' : 'Submit Request'}
+          </button>
+        </form>
+      </div>
+    </div>
+  )
+}
+
 function App() {
   const [session, setSession] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [showRequestModal, setShowRequestModal] = useState(false)
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -72,19 +340,28 @@ function App() {
               </div>
 
               <div style={{ marginTop: '2rem' }}>
-                <a href={session ? "/redirect" : `mailto:${ADMIN_EMAIL}?subject=Request%20API%20Access`} style={{
-                  display: 'inline-block',
-                  background: '#9333ea',
-                  color: '#fff',
-                  textDecoration: 'none',
-                  padding: '0.8rem 1.5rem',
-                  borderRadius: '8px',
-                  fontWeight: 600,
-                  transition: 'background 0.2s'
-                }}>
+                <button
+                  onClick={() => session ? window.location.href = '/redirect' : setShowRequestModal(true)}
+                  style={{
+                    display: 'inline-block',
+                    background: '#9333ea',
+                    color: '#fff',
+                    border: 'none',
+                    textDecoration: 'none',
+                    padding: '0.8rem 1.5rem',
+                    borderRadius: '8px',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    transition: 'background 0.2s'
+                  }}
+                  onMouseEnter={(e) => e.target.style.background = '#7e22ce'}
+                  onMouseLeave={(e) => e.target.style.background = '#9333ea'}
+                >
                   {session ? 'Go to Dashboard' : 'Request API Access'}
-                </a>
+                </button>
               </div>
+
+              <RequestAccessModal isOpen={showRequestModal} onClose={() => setShowRequestModal(false)} adminEmail={ADMIN_EMAIL} />
             </div>
           </div>
         } />
