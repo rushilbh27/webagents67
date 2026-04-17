@@ -292,6 +292,25 @@
 .mbadge-complete { background: rgba(255,59,59,0.1);   border: 1px solid rgba(255,59,59,0.25);   color: #ff6b6b; }
 .mbadge-pending  { background: rgba(251,191,36,0.1);  border: 1px solid rgba(251,191,36,0.22);  color: #fbbf24; }
 
+/* ── Mobile ───────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .hero {
+    padding: 4rem 1.25rem 2.5rem;
+  }
+
+  .mockup-wrap {
+    padding: 0 1rem 4rem;
+  }
+
+  .mockup-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .mform-row {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ── Keyframes ────────────────────────────────────────────── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(22px); }
